@@ -1,3 +1,2 @@
 # autosetup
-# autosetup
-# autosetup
+autosetup script to ease my reinstallment :)
