@@ -10,9 +10,9 @@ checkInstalled() {
 	echo -e "${c}Checking if $1 is installed."; $r
 	source ~/.profile
 	source ~/.bashrc
-	if [[ -z $(which $1) ]]; then
+	if [[ -z $(which "$1") ]]; then
 			echo -e "${c}$1 is not installed, installing it first."; $r
-			eval $2
+			eval "$2"
 	else
 			echo -e "${c}$1 is already installed, Skipping."; $r
 	fi
@@ -20,7 +20,7 @@ checkInstalled() {
 
 
 # 3 seconds wait time to start the setup
-for i in `seq 3 -1 1` ; do echo -ne "$i\rThe setup will start in... " ; sleep 1 ; done
+for i in $(seq 3 -1 1) ; do echo -ne "$i\rThe setup will start in... " ; sleep 1 ; done
 
 # install whiptail
 echo -e "${c}Installing whiptail."; $r
@@ -112,9 +112,9 @@ do
 			aria2c --console-log-level=error --summary-interval=0\
 			    "$(wget -qO- https://api.github.com/repos/agalwood/Motrix/releases|\
 			    grep browser_download_url|grep amd64.deb|head -n1|cut -d '"' -f4)"\
-	                 -d ${DOWNLOADS} -o "motrix.deb"
-			sudo gdebi ${DOWNLOADS}/motrix.deb
-			rm ${DOWNLOADS}/motrix.deb
+	                 -d "${DOWNLOADS}" -o "motrix.deb"
+			sudo gdebi "${DOWNLOADS}"/motrix.deb
+			rm "${DOWNLOADS}"/motrix.deb
 		}
 		checkInstalled motrix installMotrix
 		;;
@@ -124,9 +124,9 @@ do
 		# install spark-store
 		installSparkStore() {		
 			wget -c 'https://gitee.com/deepin-community-store/spark-store/attach_files/1121708/download/spark-store_3.1.3-1_amd64.deb'\
-			-O ${DOWNLOADS}/spark-store.deb
-			sudo gdebi ${DOWNLOADS}/spark-store.deb
-			rm ${DOWNLOADS}/spark-store.deb
+			-O "${DOWNLOADS}"/spark-store.deb
+			sudo gdebi "${DOWNLOADS}"/spark-store.deb
+			rm "${DOWNLOADS}"/spark-store.deb
 		}
 		checkInstalled spark-store installSparkStore
 		;;
@@ -138,9 +138,9 @@ do
 			aria2c --console-log-level=error --summary-interval=0\
 			    "$(wget -qO- https://api.github.com/repos/qier222/YesPlayMusic/releases|\
 			    grep browser_download_url|grep amd64.deb|head -n1|cut -d '"' -f4)"\
-			    -d ${DOWNLOADS} -o "yesplaymusic.deb"
-			sudo gdebi ${DOWNLOADS}/yesplaymusic.deb
-			rm ${DOWNLOADS}/yesplaymusic.deb
+			    -d "${DOWNLOADS}" -o "yesplaymusic.deb"
+			sudo gdebi "${DOWNLOADS}"/yesplaymusic.deb
+			rm "${DOWNLOADS}"/yesplaymusic.deb
 		}
 		checkInstalled yesplaymusic installYesPlayMusic
 		;;
@@ -173,9 +173,9 @@ do
 		installCode() {
 			aria2c --console-log-level=error --summary-interval=0\
 			    "https://go.microsoft.com/fwlink/?LinkID=760868"\
-			    -d ${DOWNLOADS} -o "vscode.deb"
-			sudo gdebi ${DOWNLOADS}/vscode.deb
-			rm ${DOWNLOADS}/vscode.deb
+			    -d "${DOWNLOADS}" -o "vscode.deb"
+			sudo gdebi "${DOWNLOADS}"/vscode.deb
+			rm "${DOWNLOADS}"/vscode.deb
 		}
 		checkInstalled code installCode
 		;;
@@ -192,9 +192,9 @@ do
 			aria2c --console-log-level=error --summary-interval=0\
 			    "$(wget -qO- https://api.github.com/repos/nojsja/shadowsocks-electron/releases|\
 			    grep browser_download_url|grep amd64.deb|head -n1|cut -d '"' -f4)"\
-			    -d ${DOWNLOADS} -o "shadowsocks.deb"
-			sudo gdebi ${DOWNLOADS}/shadowsocks.deb
-			rm ${DOWNLOADS}/shadowsocks.deb
+			    -d "${DOWNLOADS}" -o "shadowsocks.deb"
+			sudo gdebi "${DOWNLOADS}"/shadowsocks.deb
+			rm "${DOWNLOADS}"/shadowsocks.deb
 		}
 		checkInstalled shadowsocks-electron installShadowsocks
 		;;
@@ -227,9 +227,9 @@ do
 		echo -e "${c}Installing Steam"; $r
 		installSteam() {
 			# install steam and heroic game launcher
-			wget http://media.steampowered.com/client/installer/steam.deb -O ${DOWNLOADS}/steam.deb
-			sudo gdebi ${DOWNLOADS}/steam.deb
-			rm ${DOWNLOADS}/steam.deb
+			wget http://media.steampowered.com/client/installer/steam.deb -O "${DOWNLOADS}"/steam.deb
+			sudo gdebi "${DOWNLOADS}"/steam.deb
+			rm "${DOWNLOADS}"/steam.deb
 		}
 		checkInstalled steam installSteam
 		;;
@@ -241,9 +241,9 @@ do
 			aria2c --console-log-level=error --summary-interval=0\
 			    "$(wget -qO- https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases|\
 			    grep browser_download_url|grep amd64.deb|head -n1|cut -d '"' -f4)"\
-			    -d ${DOWNLOADS} -o "heroic.deb"
-			sudo gdebi ${DOWNLOADS}/heroic.deb
-			rm ${DOWNLOADS}/heroic.deb
+			    -d "${DOWNLOADS}" -o "heroic.deb"
+			sudo gdebi "${DOWNLOADS}"/heroic.deb
+			rm "${DOWNLOADS}"/heroic.deb
 		}
 		checkInstalled heroic installHeroic
 		;;
@@ -253,9 +253,9 @@ do
 		installEudic() {
 			aria2c --console-log-level=error --summary-interval=0\
 			    "https://www.eudic.net/download/eudic.deb"\
-			    -d ${DOWNLOADS} -o "eudic.deb"
-			sudo gdebi ${DOWNLOADS}/eudic.deb
-			rm ${DOWNLOADS}/eudic.deb
+			    -d "${DOWNLOADS}" -o "eudic.deb"
+			sudo gdebi "${DOWNLOADS}"/eudic.deb
+			rm "${DOWNLOADS}"/eudic.deb
 		}
 		checkInstalled eudic installEudic
 		;;
@@ -265,9 +265,9 @@ do
 		installZoom() {
 			aria2c --console-log-level=error --summary-interval=0\
 			    "https://zoom.cn/client/latest/zoom_amd64.deb"\
-			    -d ${DOWNLOADS} -o "zoom.deb"
-			sudo gdebi ${DOWNLOADS}/zoom.deb
-			rm ${DOWNLOADS}/zoom.deb
+			    -d "${DOWNLOADS}" -o "zoom.deb"
+			sudo gdebi "${DOWNLOADS}"/zoom.deb
+			rm "${DOWNLOADS}"/zoom.deb
 		}
 		checkInstalled zoom installZoom
 		;;
