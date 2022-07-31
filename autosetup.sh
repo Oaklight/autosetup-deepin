@@ -152,8 +152,9 @@ do
 		8)
 		echo -e "${c}Installing Calibre"; $r
 		# install calibre=5.44
-		checkInstalled calibre
-		sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin version=5.44.0
+		# checkInstalled calibre
+		# sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin version=5.44.0
+		sudo apt-get install com.calibre-ebook.calibre -y
 		;;
 
 		9)
@@ -175,14 +176,15 @@ do
 
 		11)
 		echo -e "${c}Installing WPS-CN"; $r
-		checkInstalled wps
+		checkInstalled cn.wps.wps-office
 		# install wps-cn
-		aria2c --console-log-level=error --summary-interval=0\
-			'https://wps-linux-personal.wpscdn.cn/wps/download/ep/Linux2019/11664/wps-office_11.1.0.11664_amd64.deb'\
-			-x 5 \
-			-d ${DOWNLOADS} -o "wps-office.deb"
-		sudo gdebi ${DOWNLOADS}/wps-office.deb
-		rm ${DOWNLOADS}/wps-office.deb
+	 	# aria2c --console-log-level=error --summary-interval=0\
+		# 	'https://wps-linux-personal.wpscdn.cn/wps/download/ep/Linux2019/11664/wps-office_11.1.0.11664_amd64.deb'\
+		# 	-x 5 \
+		# 	-d ${DOWNLOADS} -o "wps-office.deb"
+		# sudo gdebi ${DOWNLOADS}/wps-office.deb
+		# rm ${DOWNLOADS}/wps-office.deb
+		sudo apt install cn.wps.wps-office -y
 		;;
 
 		12)
@@ -218,7 +220,7 @@ do
 		15)
 		echo -e "${c}Installing Vulkan"; $r
 		# install vulkan
-		sudo apt install mesa-vulkan-drivers libvulkan1 vulkan-tools vulkan-validationlayers
+		sudo apt install mesa-vulkan-drivers libvulkan1 vulkan-tools vulkan-validationlayers nvidia-vulkan-icd
 		;;
 		
 		16)
