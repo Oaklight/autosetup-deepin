@@ -77,7 +77,8 @@ options=(1 "Better-DDE" off
 	15 "Vulkan" off
 	16 "Steam" off
 	17 "Heroic Game Launcher" off
-	18 "Eudic" off)
+	18 "Eudic" off
+	19 "Zoom" off)
 
 selected=$("${dialogbox[@]}" "${options[@]}" 2>&1 >/dev/tty)
 for choices in $selected
@@ -253,6 +254,12 @@ do
 		    -d ${DOWNLOADS} -o "eudic.deb"
 		sudo gdebi ${DOWNLOADS}/eudic.deb
 		rm ${DOWNLOADS}/eudic.deb
+		;;
+
+		19)
+		echo -e "${c}Installing zoom"; $r
+		checkInstalled zoom
+		sudo apt-get install zoom -y
 		;;
 	esac
 done
