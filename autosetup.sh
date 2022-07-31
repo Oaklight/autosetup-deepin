@@ -21,6 +21,7 @@ checkInstalled() {
 
 # 3 seconds wait time to start the setup
 for i in $(seq 3 -1 1) ; do echo -ne "$i\rThe setup will start in... " ; sleep 1 ; done
+echo ""
 
 # install whiptail
 echo -e "${y}Installing whiptail."; $r
@@ -38,7 +39,7 @@ checkInstalled aria2c "sudo apt-get install aria2 -y"
 echo -e "${y}Updating and upgrading before performing further operations."; $r
 sudo apt update && sudo apt upgrade -y
 sudo apt --fix-broken install -y
-sudo apt autoremove -y
+# sudo apt autoremove -y
 
 #Setting up Git
 read -p "${y}Do you want to setup Git global config? (y/n): " -r; $r
@@ -280,3 +281,4 @@ done
 echo -e "${y}Updating and upgrading to finish auto-setup script."; $r
 sudo apt update && sudo apt upgrade -y
 sudo apt --fix-broken install -y
+sudo apt autoremove -y
