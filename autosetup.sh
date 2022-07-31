@@ -220,7 +220,7 @@ do
 		15)
 		echo -e "${c}Installing Vulkan"; $r
 		# install vulkan
-		sudo apt install mesa-vulkan-drivers libvulkan1 vulkan-tools vulkan-validationlayers nvidia-vulkan-icd
+		sudo apt install mesa-vulkan-drivers libvulkan1 vulkan-tools vulkan-validationlayers nvidia-vulkan-icd -y
 		;;
 		
 		16)
