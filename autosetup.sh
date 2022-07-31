@@ -76,7 +76,8 @@ options=(1 "Better-DDE" off
 	14 "PulseAudio" off
 	15 "Vulkan" off
 	16 "Steam" off
-	17 "Heroic Game Launcher" off)
+	17 "Heroic Game Launcher" off
+	18 "Eudic" off)
 
 selected=$("${dialogbox[@]}" "${options[@]}" 2>&1 >/dev/tty)
 for choices in $selected
@@ -242,6 +243,16 @@ do
 		    -d ${DOWNLOADS} -o "heroic.deb"
 		sudo gdebi ${DOWNLOADS}/heroic.deb
 		rm ${DOWNLOADS}/heroic.deb
+		;;
+
+		18)
+		echo -e "${c}Installing Eudic"; $r
+		checkInstalled eudic
+		aria2c --console-log-level=error --summary-interval=0\
+		    "https://www.eudic.net/download/eudic.deb?v=2022-07-07"\
+		    -d ${DOWNLOADS} -o "eudic.deb"
+		sudo gdebi ${DOWNLOADS}/eudic.deb
+		rm ${DOWNLOADS}/eudic.deb
 		;;
 	esac
 done
