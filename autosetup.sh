@@ -12,7 +12,7 @@ checkInstalled() {
 	source ~/.bashrc
 	if [[ -z $(which $1) ]]; then
 			echo -e "${c}$1 is not installed, installing it first."; $r
-			$2
+			eval $2
 	else
 			echo -e "${c}$1 is already installed, Skipping."; $r
 	fi
@@ -23,19 +23,16 @@ checkInstalled() {
 for i in `seq 3 -1 1` ; do echo -ne "$i\rThe setup will start in... " ; sleep 1 ; done
 
 # install whiptail
-echo -e "{c}Installing whiptail."; $r
-checkInstalled whiptail
-sudo apt install whiptail -y
+echo -e "${c}Installing whiptail."; $r
+checkInstalled whiptail "sudo apt install whiptail -y"
 
 # install gdebi
 echo -e "${c}Installing gdebi."; $r
-checkInstalled gdebi
-sudo apt install gdebi -y
+checkInstalled gdebi "sudo apt install gdebi -y"
 
 # install aria2c
-echo -e "{c}Installing aria2."; $r
-checkInstalled aria2c
-sudo apt-get install aria2 -y
+echo -e "${c}Installing aria2."; $r
+checkInstalled aria2c "sudo apt-get install aria2 -y"
 
 # Upgrade and Update Command
 echo -e "${c}Updating and upgrading before performing further operations."; $r
@@ -95,68 +92,74 @@ do
 		2)
 		echo -e "${c}Installing Vivaldi"; $r
 		# install vivaldi browser
-		checkInstalled vivaldi-stable
-		wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | gpg --dearmor | sudo dd of=/usr/share/keyrings/vivaldi-browser.gpg
-		echo "deb [signed-by=/usr/share/keyrings/vivaldi-browser.gpg arch=$(dpkg --print-architecture)] https://repo.vivaldi.com/archive/deb/ stable main" | sudo dd of=/etc/apt/sources.list.d/vivaldi-archive.list
-		sudo apt update && sudo apt install vivaldi-stable -y
+		installVivaldi() {
+			wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | gpg --dearmor | sudo dd of=/usr/share/keyrings/vivaldi-browser.gpg
+			echo "deb [signed-by=/usr/share/keyrings/vivaldi-browser.gpg arch=$(dpkg --print-architecture)] https://repo.vivaldi.com/archive/deb/ stable main" | sudo dd of=/etc/apt/sources.list.d/vivaldi-archive.list
+			sudo apt update && sudo apt install vivaldi-stable -y
+		}
+		checkInstalled vivaldi-stable installVivaldi
 		;;
 
 		3)
  		echo -e "${c}Installing Thunderbird"; $r
-		checkInstalled thunderbird
-		# install thunderbird
-		sudo apt-get install thunderbird -y
+		checkInstalled thunderbird "sudo apt-get install thunderbird -y"
  		;;
 
  		4)
 		echo -e "${c}Installing Motrix"; $r
 		# install motrix
-		checkInstalled motrix
-		aria2c --console-log-level=error --summary-interval=0\
-		    "$(wget -qO- https://api.github.com/repos/agalwood/Motrix/releases|\
-		    grep browser_download_url|grep amd64.deb|head -n1|cut -d '"' -f4)"\
-                 -d ${DOWNLOADS} -o "motrix.deb"
-		sudo gdebi ${DOWNLOADS}/motrix.deb
-		rm ${DOWNLOADS}/motrix.deb
+		installMotrix() {
+			aria2c --console-log-level=error --summary-interval=0\
+			    "$(wget -qO- https://api.github.com/repos/agalwood/Motrix/releases|\
+			    grep browser_download_url|grep amd64.deb|head -n1|cut -d '"' -f4)"\
+	                 -d ${DOWNLOADS} -o "motrix.deb"
+			sudo gdebi ${DOWNLOADS}/motrix.deb
+			rm ${DOWNLOADS}/motrix.deb
+		}
+		checkInstalled motrix installMotrix
 		;;
 
 		5)
 		echo -e "${c}Installing Spark-Store"; $r
 		# install spark-store
-		checkInstalled spark-store
-		wget -c 'https://gitee.com/deepin-community-store/spark-store/attach_files/1121708/download/spark-store_3.1.3-1_amd64.deb'\
-		-O ${DOWNLOADS}/spark-store.deb
-		sudo gdebi ${DOWNLOADS}/spark-store.deb
-		rm ${DOWNLOADS}/spark-store.deb
+		installSparkStore() {		
+			wget -c 'https://gitee.com/deepin-community-store/spark-store/attach_files/1121708/download/spark-store_3.1.3-1_amd64.deb'\
+			-O ${DOWNLOADS}/spark-store.deb
+			sudo gdebi ${DOWNLOADS}/spark-store.deb
+			rm ${DOWNLOADS}/spark-store.deb
+		}
+		checkInstalled spark-store installSparkStore
 		;;
 
 		6)
 		echo -e "${c}Installing YesPlayMusic"; $r
 		# install yesplaymusic
-		checkInstalled yesplaymusic
-		aria2c --console-log-level=error --summary-interval=0\
-		    "$(wget -qO- https://api.github.com/repos/qier222/YesPlayMusic/releases|\
-		    grep browser_download_url|grep amd64.deb|head -n1|cut -d '"' -f4)"\
-		    -d ${DOWNLOADS} -o "yesplaymusic.deb"
-		sudo gdebi ${DOWNLOADS}/yesplaymusic.deb
-		rm ${DOWNLOADS}/yesplaymusic.deb
+		installYesPlayMusic() {
+			aria2c --console-log-level=error --summary-interval=0\
+			    "$(wget -qO- https://api.github.com/repos/qier222/YesPlayMusic/releases|\
+			    grep browser_download_url|grep amd64.deb|head -n1|cut -d '"' -f4)"\
+			    -d ${DOWNLOADS} -o "yesplaymusic.deb"
+			sudo gdebi ${DOWNLOADS}/yesplaymusic.deb
+			rm ${DOWNLOADS}/yesplaymusic.deb
+		}
+		checkInstalled yesplaymusic installYesPlayMusic
 		;;
 
 		7)
 		echo -e "${c}Installing Zotero"; $r
 		# install zotero-deb
-		checkInstalled zotero
-		wget -qO- https://raw.githubusercontent.com/retorquere/zotero-deb/master/install.sh | sudo bash
-		sudo apt update -y
-		sudo apt install zotero -y
+		installZotero() {
+			wget -qO- https://raw.githubusercontent.com/retorquere/zotero-deb/master/install.sh | sudo bash
+			sudo apt update -y
+			sudo apt install zotero -y
+		}
+		checkInstalled zotero installZotero
 		;;
 
 		8)
 		echo -e "${c}Installing Calibre"; $r
 		# install calibre=5.44
-		# checkInstalled calibre
-		# sudo -v && wget -nv -O- https://download.calibre-ebook.com/linux-installer.sh | sudo sh /dev/stdin version=5.44.0
-		sudo apt-get install com.calibre-ebook.calibre -y
+		checkInstalled com.calibre-ebook.calibre "sudo apt-get install com.calibre-ebook.calibre -y"
 		;;
 
 		9)
@@ -167,56 +170,51 @@ do
 
 		10)
 		echo -e "${c}Installing Visual Studio Code"; $r
-		checkInstalled code
-		# install vscodium
-		aria2c --console-log-level=error --summary-interval=0\
-		    "https://go.microsoft.com/fwlink/?LinkID=760868"\
-		    -d ${DOWNLOADS} -o "vscode.deb"
-		sudo gdebi ${DOWNLOADS}/vscode.deb
-		rm ${DOWNLOADS}/vscode.deb
+		installCode() {
+			aria2c --console-log-level=error --summary-interval=0\
+			    "https://go.microsoft.com/fwlink/?LinkID=760868"\
+			    -d ${DOWNLOADS} -o "vscode.deb"
+			sudo gdebi ${DOWNLOADS}/vscode.deb
+			rm ${DOWNLOADS}/vscode.deb
+		}
+		checkInstalled code installCode
 		;;
 
 		11)
 		echo -e "${c}Installing WPS-CN"; $r
-		checkInstalled cn.wps.wps-office
-		# install wps-cn
-	 	# aria2c --console-log-level=error --summary-interval=0\
-		# 	'https://wps-linux-personal.wpscdn.cn/wps/download/ep/Linux2019/11664/wps-office_11.1.0.11664_amd64.deb'\
-		# 	-x 5 \
-		# 	-d ${DOWNLOADS} -o "wps-office.deb"
-		# sudo gdebi ${DOWNLOADS}/wps-office.deb
-		# rm ${DOWNLOADS}/wps-office.deb
-		sudo apt install cn.wps.wps-office -y
+		checkInstalled cn.wps.wps-office "sudo apt install cn.wps.wps-office -y"
 		;;
 
 		12)
 		echo -e "${c}Installing Shadowsocks-Electron"; $r
-		checkInstalled shadowsocks-electron
 		# install shadowsocks-electron
-		aria2c --console-log-level=error --summary-interval=0\
-		    "$(wget -qO- https://api.github.com/repos/nojsja/shadowsocks-electron/releases|\
-		    grep browser_download_url|grep amd64.deb|head -n1|cut -d '"' -f4)"\
-		    -d ${DOWNLOADS} -o "shadowsocks.deb"
-		sudo gdebi ${DOWNLOADS}/shadowsocks.deb
-		rm ${DOWNLOADS}/shadowsocks.deb
+		installShadowsocks() {
+			aria2c --console-log-level=error --summary-interval=0\
+			    "$(wget -qO- https://api.github.com/repos/nojsja/shadowsocks-electron/releases|\
+			    grep browser_download_url|grep amd64.deb|head -n1|cut -d '"' -f4)"\
+			    -d ${DOWNLOADS} -o "shadowsocks.deb"
+			sudo gdebi ${DOWNLOADS}/shadowsocks.deb
+			rm ${DOWNLOADS}/shadowsocks.deb
+		}
+		checkInstalled shadowsocks-electron installShadowsocks
 		;;
 
 		13)
 		echo -e "${c}Installing rclone"; $r
-		checkInstalled rclone
-		# install rclone & setup onedrive and megasync
-		sudo -v ; curl https://rclone.org/install.sh | sudo bash
-		#sudo cp ./rclone* "${HOME}/.config/systemd/user/"
-		#mkdir "${HOME}/OneDrive-Personal"
-		#mkdir "${HOME}/OneDrive-UChicago"
-		#mkdir "${HOME}/MegaSync"
+		installRclone() {
+			# install rclone & setup onedrive and megasync
+			sudo -v ; curl https://rclone.org/install.sh | sudo bash
+			#sudo cp ./rclone* "${HOME}/.config/systemd/user/"
+			#mkdir -p "${HOME}/OneDrive-Personal"
+			#mkdir -p "${HOME}/OneDrive-UChicago"
+			#mkdir -p "${HOME}/MegaSync"
+		}
+		checkInstalled rclone installRclone
 		;;
 
 		14)
 		echo -e "${c}Installing PulseAudio"; $r
-		checkInstalled pulseaudio
-		# install pulseaudio
-		sudo apt-get install pulseaudio -y
+		checkInstalled pulseaudio "sudo apt-get install pulseaudio -y"
 		;;
 
 		15)
@@ -227,39 +225,51 @@ do
 		
 		16)
 		echo -e "${c}Installing Steam"; $r
-		checkInstalled steam
-		# install steam and heroic game launcher
-		wget http://media.steampowered.com/client/installer/steam.deb -O ${DOWNLOADS}/steam.deb
-		sudo gdebi ${DOWNLOADS}/steam.deb
-		rm ${DOWNLOADS}/steam.deb
+		installSteam() {
+			# install steam and heroic game launcher
+			wget http://media.steampowered.com/client/installer/steam.deb -O ${DOWNLOADS}/steam.deb
+			sudo gdebi ${DOWNLOADS}/steam.deb
+			rm ${DOWNLOADS}/steam.deb
+		}
+		checkInstalled steam installSteam
 		;;
 
 		17)
 		echo -e "${c}Installing Steam"; $r
-		checkInstalled heroic
 		# install heroic game launcher
-		aria2c --console-log-level=error --summary-interval=0\
-		    "$(wget -qO- https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases|\
-		    grep browser_download_url|grep amd64.deb|head -n1|cut -d '"' -f4)"\
-		    -d ${DOWNLOADS} -o "heroic.deb"
-		sudo gdebi ${DOWNLOADS}/heroic.deb
-		rm ${DOWNLOADS}/heroic.deb
+		installHeroic() {
+			aria2c --console-log-level=error --summary-interval=0\
+			    "$(wget -qO- https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases|\
+			    grep browser_download_url|grep amd64.deb|head -n1|cut -d '"' -f4)"\
+			    -d ${DOWNLOADS} -o "heroic.deb"
+			sudo gdebi ${DOWNLOADS}/heroic.deb
+			rm ${DOWNLOADS}/heroic.deb
+		}
+		checkInstalled heroic installHeroic
 		;;
 
 		18)
 		echo -e "${c}Installing Eudic"; $r
-		checkInstalled eudic
-		aria2c --console-log-level=error --summary-interval=0\
-		    "https://www.eudic.net/download/eudic.deb?v=2022-07-07"\
-		    -d ${DOWNLOADS} -o "eudic.deb"
-		sudo gdebi ${DOWNLOADS}/eudic.deb
-		rm ${DOWNLOADS}/eudic.deb
+		installEudic() {
+			aria2c --console-log-level=error --summary-interval=0\
+			    "https://www.eudic.net/download/eudic.deb"\
+			    -d ${DOWNLOADS} -o "eudic.deb"
+			sudo gdebi ${DOWNLOADS}/eudic.deb
+			rm ${DOWNLOADS}/eudic.deb
+		}
+		checkInstalled eudic installEudic
 		;;
 
 		19)
 		echo -e "${c}Installing zoom"; $r
-		checkInstalled zoom
-		sudo apt-get install zoom -y
+		installZoom() {
+			aria2c --console-log-level=error --summary-interval=0\
+			    "https://zoom.cn/client/latest/zoom_amd64.deb"\
+			    -d ${DOWNLOADS} -o "zoom.deb"
+			sudo gdebi ${DOWNLOADS}/zoom.deb
+			rm ${DOWNLOADS}/zoom.deb
+		}
+		checkInstalled zoom installZoom
 		;;
 	esac
 done
