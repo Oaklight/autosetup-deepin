@@ -23,19 +23,19 @@ checkInstalled() {
 for i in $(seq 3 -1 1) ; do echo -ne "$i\rThe setup will start in... " ; sleep 1 ; done
 
 # install whiptail
-echo -e "${c}Installing whiptail."; $r
+echo -e "${y}Installing whiptail."; $r
 checkInstalled whiptail "sudo apt install whiptail -y"
 
 # install gdebi
-echo -e "${c}Installing gdebi."; $r
+echo -e "${y}Installing gdebi."; $r
 checkInstalled gdebi "sudo apt install gdebi -y"
 
 # install aria2c
-echo -e "${c}Installing aria2."; $r
+echo -e "${y}Installing aria2."; $r
 checkInstalled aria2c "sudo apt-get install aria2 -y"
 
 # Upgrade and Update Command
-echo -e "${c}Updating and upgrading before performing further operations."; $r
+echo -e "${y}Updating and upgrading before performing further operations."; $r
 sudo apt update && sudo apt upgrade -y
 sudo apt --fix-broken install -y
 sudo apt autoremove -y
@@ -44,15 +44,15 @@ sudo apt autoremove -y
 read -p "${y}Do you want to setup Git global config? (y/n): " -r; $r
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-	echo -e "${c}Setting up global git config at ~/.gitconfig"; $r
+	echo -e "${y}Setting up global git config at ~/.gitconfig"; $r
 	git config --global color.ui true
 	read -p "Enter Your Full Name: " name
 	read -p "Enter Your Email: " email
 	git config --global user.name "$name"
 	git config --global user.email "$email"
-	echo -e "${c}Git Setup Successfully!"; $r
+	echo -e "${y}Git Setup Successfully!"; $r
 else
-	echo -e "${c}Skipping!"; $r && :
+	echo -e "${y}Skipping!"; $r && :
 fi
 
 dialogbox=(whiptail --separate-output --ok-button "Install" --title "Auto Setup Script" --checklist "\nPlease select required software(s):\n(Press 'Space' to Select/Deselect, 'Enter' to Install and 'Esc' to Cancel)" 30 80 20)
@@ -81,8 +81,8 @@ selected=$("${dialogbox[@]}" "${options[@]}" 2>&1 >/dev/tty)
 for choices in $selected
 do
 	case $choices in
-		1)
-		echo -e "${c}Installing Better-DDE"; $r
+		1) # be careful to use Better-DDE, it's very likely the one that triggers DDE message center problem.
+		echo -e "${y}Installing Better-DDE"; $r
 		# install better-dde
 		wget -q -O - https://better-dde.github.io/ppa/better-dde.gpg | sudo apt-key add -
 		sudo sh -c 'echo "deb https://better-dde.github.io/ppa/ ./" > /etc/apt/sources.list.d/better-dde.list'
@@ -90,7 +90,7 @@ do
 		;;
 
 		2)
-		echo -e "${c}Installing Vivaldi"; $r
+		echo -e "${y}Installing Vivaldi"; $r
 		# install vivaldi browser
 		installVivaldi() {
 			wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | gpg --dearmor | sudo dd of=/usr/share/keyrings/vivaldi-browser.gpg
@@ -101,12 +101,12 @@ do
 		;;
 
 		3)
- 		echo -e "${c}Installing Thunderbird"; $r
+ 		echo -e "${y}Installing Thunderbird"; $r
 		checkInstalled thunderbird "sudo apt-get install thunderbird -y"
  		;;
 
  		4)
-		echo -e "${c}Installing Motrix"; $r
+		echo -e "${y}Installing Motrix"; $r
 		# install motrix
 		installMotrix() {
 			aria2c --console-log-level=error --summary-interval=0\
@@ -120,7 +120,7 @@ do
 		;;
 
 		5)
-		echo -e "${c}Installing Spark-Store"; $r
+		echo -e "${y}Installing Spark-Store"; $r
 		# install spark-store
 		installSparkStore() {		
 			wget -c 'https://gitee.com/deepin-community-store/spark-store/attach_files/1121708/download/spark-store_3.1.3-1_amd64.deb'\
@@ -132,7 +132,7 @@ do
 		;;
 
 		6)
-		echo -e "${c}Installing YesPlayMusic"; $r
+		echo -e "${y}Installing YesPlayMusic"; $r
 		# install yesplaymusic
 		installYesPlayMusic() {
 			aria2c --console-log-level=error --summary-interval=0\
@@ -146,7 +146,7 @@ do
 		;;
 
 		7)
-		echo -e "${c}Installing Zotero"; $r
+		echo -e "${y}Installing Zotero"; $r
 		# install zotero-deb
 		installZotero() {
 			wget -qO- https://raw.githubusercontent.com/retorquere/zotero-deb/master/install.sh | sudo bash
@@ -157,19 +157,19 @@ do
 		;;
 
 		8)
-		echo -e "${c}Installing Calibre"; $r
+		echo -e "${y}Installing Calibre"; $r
 		# install calibre=5.44
 		checkInstalled com.calibre-ebook.calibre "sudo apt-get install com.calibre-ebook.calibre -y"
 		;;
 
 		9)
-		echo -e "${c}Installing Joplin"; $r
+		echo -e "${y}Installing Joplin"; $r
 		# install joplin
 		wget -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | bash
 		;;
 
 		10)
-		echo -e "${c}Installing Visual Studio Code"; $r
+		echo -e "${y}Installing Visual Studio Code"; $r
 		installCode() {
 			aria2c --console-log-level=error --summary-interval=0\
 			    "https://go.microsoft.com/fwlink/?LinkID=760868"\
@@ -181,12 +181,12 @@ do
 		;;
 
 		11)
-		echo -e "${c}Installing WPS-CN"; $r
+		echo -e "${y}Installing WPS-CN"; $r
 		checkInstalled cn.wps.wps-office "sudo apt install cn.wps.wps-office -y"
 		;;
 
 		12)
-		echo -e "${c}Installing Shadowsocks-Electron"; $r
+		echo -e "${y}Installing Shadowsocks-Electron"; $r
 		# install shadowsocks-electron
 		installShadowsocks() {
 			aria2c --console-log-level=error --summary-interval=0\
@@ -200,7 +200,7 @@ do
 		;;
 
 		13)
-		echo -e "${c}Installing rclone"; $r
+		echo -e "${y}Installing rclone"; $r
 		installRclone() {
 			# install rclone & setup onedrive and megasync
 			sudo -v ; curl https://rclone.org/install.sh | sudo bash
@@ -213,18 +213,18 @@ do
 		;;
 
 		14)
-		echo -e "${c}Installing PulseAudio"; $r
+		echo -e "${y}Installing PulseAudio"; $r
 		checkInstalled pulseaudio "sudo apt-get install pulseaudio -y"
 		;;
 
 		15)
-		echo -e "${c}Installing Vulkan"; $r
+		echo -e "${y}Installing Vulkan"; $r
 		# install vulkan
 		sudo apt install mesa-vulkan-drivers libvulkan1 vulkan-tools vulkan-validationlayers nvidia-vulkan-icd -y
 		;;
 		
 		16)
-		echo -e "${c}Installing Steam"; $r
+		echo -e "${y}Installing Steam"; $r
 		installSteam() {
 			# install steam and heroic game launcher
 			wget http://media.steampowered.com/client/installer/steam.deb -O "${DOWNLOADS}"/steam.deb
@@ -235,7 +235,7 @@ do
 		;;
 
 		17)
-		echo -e "${c}Installing Steam"; $r
+		echo -e "${y}Installing Steam"; $r
 		# install heroic game launcher
 		installHeroic() {
 			aria2c --console-log-level=error --summary-interval=0\
@@ -249,7 +249,7 @@ do
 		;;
 
 		18)
-		echo -e "${c}Installing Eudic"; $r
+		echo -e "${y}Installing Eudic"; $r
 		installEudic() {
 			aria2c --console-log-level=error --summary-interval=0\
 			    "https://www.eudic.net/download/eudic.deb"\
@@ -261,7 +261,7 @@ do
 		;;
 
 		19)
-		echo -e "${c}Installing zoom"; $r
+		echo -e "${y}Installing zoom"; $r
 		installZoom() {
 			aria2c --console-log-level=error --summary-interval=0\
 			    "https://zoom.cn/client/latest/zoom_amd64.deb"\
@@ -277,6 +277,6 @@ done
 
 
 # Final Upgrade and Update Command
-echo -e "${c}Updating and upgrading to finish auto-setup script."; $r
+echo -e "${y}Updating and upgrading to finish auto-setup script."; $r
 sudo apt update && sudo apt upgrade -y
 sudo apt --fix-broken install -y
