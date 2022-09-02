@@ -236,7 +236,7 @@ do
 		;;
 
 		17)
-		echo -e "${y}Installing Steam"; $r
+		echo -e "${y}Installing Heroic Game Launcher"; $r
 		# install heroic game launcher
 		installHeroic() {
 			aria2c --console-log-level=error --summary-interval=0\
