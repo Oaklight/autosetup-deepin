@@ -35,6 +35,10 @@ checkInstalled gdebi "sudo apt install gdebi -y"
 echo -e "${y}Installing aria2."; $r
 checkInstalled aria2c "sudo apt-get install aria2 -y"
 
+# install git
+echo -e "${y}Installing git."; $r
+checkInstalled git "sudo apt-get install git -y"
+
 # Upgrade and Update Command
 echo -e "${y}Updating and upgrading before performing further operations."; $r
 sudo apt update && sudo apt upgrade -y
