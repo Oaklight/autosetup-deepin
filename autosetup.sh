@@ -39,6 +39,10 @@ checkInstalled aria2c "sudo apt-get install aria2 -y"
 echo -e "${y}Installing git."; $r
 checkInstalled git "sudo apt-get install git -y"
 
+# install emoji
+echo -e "${y}Installing color emoji."; $r
+checkInstalled fonts-noto-color-emoji "sudo apt-get install fonts-noto-color-emoji -y"
+
 # Upgrade and Update Command
 echo -e "${y}Updating and upgrading before performing further operations."; $r
 sudo apt update && sudo apt upgrade -y
@@ -75,12 +79,12 @@ options=(1 "Better-DDE" off
 	11 "WPS-CN" off
 	12 "Shadowsocks-Electron" off
 	13 "rclone" off
-	14 "PulseAudio" off
-	15 "Vulkan" off
-	16 "Steam" off
-	17 "Heroic Game Launcher" off
-	18 "Eudic" off
-	19 "Zoom" off)
+	14 "Eudic" off
+	15 "Zoom" off
+	16 "PulseAudio" off
+	17 "Vulkan" off
+	18 "Steam" off
+	19 "Heroic Game Launcher" off)
 
 selected=$("${dialogbox[@]}" "${options[@]}" 2>&1 >/dev/tty)
 for choices in $selected
@@ -107,7 +111,7 @@ do
 
 		3)
  		echo -e "${y}Installing Thunderbird"; $r
-		checkInstalled thunderbird "sudo apt-get install thunderbird -y"
+		checkInstalled net.thunderbird "sudo apt-get install net.thunderbird -y"
  		;;
 
  		4)
@@ -218,42 +222,6 @@ do
 		;;
 
 		14)
-		echo -e "${y}Installing PulseAudio"; $r
-		checkInstalled pulseaudio "sudo apt-get install pulseaudio -y"
-		;;
-
-		15)
-		echo -e "${y}Installing Vulkan"; $r
-		# install vulkan
-		sudo apt install mesa-vulkan-drivers libvulkan1 vulkan-tools vulkan-validationlayers nvidia-vulkan-icd -y
-		;;
-		
-		16)
-		echo -e "${y}Installing Steam"; $r
-		installSteam() {
-			# install steam and heroic game launcher
-			wget http://media.steampowered.com/client/installer/steam.deb -O "${DOWNLOADS}"/steam.deb
-			sudo gdebi "${DOWNLOADS}"/steam.deb
-			rm "${DOWNLOADS}"/steam.deb
-		}
-		checkInstalled steam installSteam
-		;;
-
-		17)
-		echo -e "${y}Installing Heroic Game Launcher"; $r
-		# install heroic game launcher
-		installHeroic() {
-			aria2c --console-log-level=error --summary-interval=0\
-			    "$(wget -qO- https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases|\
-			    grep browser_download_url|grep amd64.deb|head -n1|cut -d '"' -f4)"\
-			    -d "${DOWNLOADS}" -o "heroic.deb"
-			sudo gdebi "${DOWNLOADS}"/heroic.deb
-			rm "${DOWNLOADS}"/heroic.deb
-		}
-		checkInstalled heroic installHeroic
-		;;
-
-		18)
 		echo -e "${y}Installing Eudic"; $r
 		installEudic() {
 			aria2c --console-log-level=error --summary-interval=0\
@@ -265,7 +233,7 @@ do
 		checkInstalled eudic installEudic
 		;;
 
-		19)
+		15)
 		echo -e "${y}Installing zoom"; $r
 		installZoom() {
 			aria2c --console-log-level=error --summary-interval=0\
@@ -275,6 +243,42 @@ do
 			rm "${DOWNLOADS}"/zoom.deb
 		}
 		checkInstalled zoom installZoom
+		;;
+
+		16)
+		echo -e "${y}Installing PulseAudio"; $r
+		checkInstalled pulseaudio "sudo apt-get install pulseaudio -y"
+		;;
+
+		17)
+		echo -e "${y}Installing Vulkan"; $r
+		# install vulkan
+		sudo apt install libvulkan1 vulkan-tools vulkan-utils vulkan-validationlayers -y
+		;;
+		
+		18)
+		echo -e "${y}Installing Steam"; $r
+		installSteam() {
+			# install steam and heroic game launcher
+			wget http://media.steampowered.com/client/installer/steam.deb -O "${DOWNLOADS}"/steam.deb
+			sudo gdebi "${DOWNLOADS}"/steam.deb
+			rm "${DOWNLOADS}"/steam.deb
+		}
+		checkInstalled steam installSteam
+		;;
+
+		19)
+		echo -e "${y}Installing Heroic Game Launcher"; $r
+		# install heroic game launcher
+		installHeroic() {
+			aria2c --console-log-level=error --summary-interval=0\
+			    "$(wget -qO- https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases|\
+			    grep browser_download_url|grep amd64.deb|head -n1|cut -d '"' -f4)"\
+			    -d "${DOWNLOADS}" -o "heroic.deb"
+			sudo gdebi "${DOWNLOADS}"/heroic.deb
+			rm "${DOWNLOADS}"/heroic.deb
+		}
+		checkInstalled heroic installHeroic
 		;;
 	esac
 done
