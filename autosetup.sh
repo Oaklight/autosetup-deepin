@@ -1,22 +1,13 @@
 #!/bin/bash
 
+# include functions for different packages
+chmod 700 ./autosetup-functions.sh
+. autosetup-functions.sh
+
+
 c='\e[32m' # Coloured echo (Green)
 y=$'\033[38;5;11m' # Coloured echo (yellow)
 r='tput sgr0' #Reset colour after echo
-
-DOWNLOADS=${HOME}/Downloads
-
-checkInstalled() {
-	echo -e "${c}Checking if $1 is installed."; $r
-	source ~/.profile
-	source ~/.bashrc
-	if [[ -z $(which "$1") ]]; then
-			echo -e "${c}$1 is not installed, installing it first."; $r
-			eval "$2"
-	else
-			echo -e "${c}$1 is already installed, Skipping."; $r
-	fi
-}
 
 
 # 3 seconds wait time to start the setup
@@ -101,11 +92,6 @@ do
 		2)
 		echo -e "${y}Installing Vivaldi"; $r
 		# install vivaldi browser
-		installVivaldi() {
-			wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | gpg --dearmor | sudo dd of=/usr/share/keyrings/vivaldi-browser.gpg
-			echo "deb [signed-by=/usr/share/keyrings/vivaldi-browser.gpg arch=$(dpkg --print-architecture)] https://repo.vivaldi.com/archive/deb/ stable main" | sudo dd of=/etc/apt/sources.list.d/vivaldi-archive.list
-			sudo apt update && sudo apt install vivaldi-stable -y
-		}
 		checkInstalled vivaldi-stable installVivaldi
 		;;
 
@@ -116,52 +102,21 @@ do
 
  		4)
 		echo -e "${y}Installing Motrix"; $r
-		# install motrix
-		installMotrix() {
-			aria2c --console-log-level=error --summary-interval=0\
-			    "$(wget -qO- https://api.github.com/repos/agalwood/Motrix/releases|\
-			    grep browser_download_url|grep amd64.deb|head -n1|cut -d '"' -f4)"\
-	                 -d "${DOWNLOADS}" -o "motrix.deb"
-			sudo gdebi "${DOWNLOADS}"/motrix.deb
-			rm "${DOWNLOADS}"/motrix.deb
-		}
 		checkInstalled motrix installMotrix
 		;;
 
 		5)
 		echo -e "${y}Installing Spark-Store"; $r
-		# install spark-store
-		installSparkStore() {		
-			wget -c 'https://gitee.com/deepin-community-store/spark-store/attach_files/1121708/download/spark-store_3.1.3-1_amd64.deb'\
-			-O "${DOWNLOADS}"/spark-store.deb
-			sudo gdebi "${DOWNLOADS}"/spark-store.deb
-			rm "${DOWNLOADS}"/spark-store.deb
-		}
 		checkInstalled spark-store installSparkStore
 		;;
 
 		6)
 		echo -e "${y}Installing YesPlayMusic"; $r
-		# install yesplaymusic
-		installYesPlayMusic() {
-			aria2c --console-log-level=error --summary-interval=0\
-			    "$(wget -qO- https://api.github.com/repos/qier222/YesPlayMusic/releases|\
-			    grep browser_download_url|grep amd64.deb|head -n1|cut -d '"' -f4)"\
-			    -d "${DOWNLOADS}" -o "yesplaymusic.deb"
-			sudo gdebi "${DOWNLOADS}"/yesplaymusic.deb
-			rm "${DOWNLOADS}"/yesplaymusic.deb
-		}
 		checkInstalled yesplaymusic installYesPlayMusic
 		;;
 
 		7)
 		echo -e "${y}Installing Zotero"; $r
-		# install zotero-deb
-		installZotero() {
-			wget -qO- https://raw.githubusercontent.com/retorquere/zotero-deb/master/install.sh | sudo bash
-			sudo apt update -y
-			sudo apt install zotero -y
-		}
 		checkInstalled zotero installZotero
 		;;
 
@@ -179,13 +134,6 @@ do
 
 		10)
 		echo -e "${y}Installing Visual Studio Code"; $r
-		installCode() {
-			aria2c --console-log-level=error --summary-interval=0\
-			    "https://go.microsoft.com/fwlink/?LinkID=760868"\
-			    -d "${DOWNLOADS}" -o "vscode.deb"
-			sudo gdebi "${DOWNLOADS}"/vscode.deb
-			rm "${DOWNLOADS}"/vscode.deb
-		}
 		checkInstalled code installCode
 		;;
 
@@ -196,52 +144,21 @@ do
 
 		12)
 		echo -e "${y}Installing Shadowsocks-Electron"; $r
-		# install shadowsocks-electron
-		installShadowsocks() {
-			aria2c --console-log-level=error --summary-interval=0\
-			    "$(wget -qO- https://api.github.com/repos/nojsja/shadowsocks-electron/releases|\
-			    grep browser_download_url|grep amd64.deb|head -n1|cut -d '"' -f4)"\
-			    -d "${DOWNLOADS}" -o "shadowsocks.deb"
-			sudo gdebi "${DOWNLOADS}"/shadowsocks.deb
-			rm "${DOWNLOADS}"/shadowsocks.deb
-		}
 		checkInstalled shadowsocks-electron installShadowsocks
 		;;
 
 		13)
 		echo -e "${y}Installing rclone"; $r
-		installRclone() {
-			# install rclone & setup onedrive and megasync
-			sudo -v ; curl https://rclone.org/install.sh | sudo bash
-			#sudo cp ./rclone* "${HOME}/.config/systemd/user/"
-			#mkdir -p "${HOME}/OneDrive-Personal"
-			#mkdir -p "${HOME}/OneDrive-UChicago"
-			#mkdir -p "${HOME}/MegaSync"
-		}
 		checkInstalled rclone installRclone
 		;;
 
 		14)
 		echo -e "${y}Installing Eudic"; $r
-		installEudic() {
-			aria2c --console-log-level=error --summary-interval=0\
-			    "https://www.eudic.net/download/eudic.deb"\
-			    -d "${DOWNLOADS}" -o "eudic.deb"
-			sudo gdebi "${DOWNLOADS}"/eudic.deb
-			rm "${DOWNLOADS}"/eudic.deb
-		}
 		checkInstalled eudic installEudic
 		;;
 
 		15)
 		echo -e "${y}Installing zoom"; $r
-		installZoom() {
-			aria2c --console-log-level=error --summary-interval=0\
-			    "https://zoom.cn/client/latest/zoom_amd64.deb"\
-			    -d "${DOWNLOADS}" -o "zoom.deb"
-			sudo gdebi "${DOWNLOADS}"/zoom.deb
-			rm "${DOWNLOADS}"/zoom.deb
-		}
 		checkInstalled zoom installZoom
 		;;
 
@@ -252,32 +169,16 @@ do
 
 		17)
 		echo -e "${y}Installing Vulkan"; $r
-		# install vulkan
-		sudo apt install libvulkan1 vulkan-tools vulkan-utils vulkan-validationlayers -y
+		installVulkan
 		;;
 		
 		18)
 		echo -e "${y}Installing Steam"; $r
-		installSteam() {
-			# install steam and heroic game launcher
-			wget http://media.steampowered.com/client/installer/steam.deb -O "${DOWNLOADS}"/steam.deb
-			sudo gdebi "${DOWNLOADS}"/steam.deb
-			rm "${DOWNLOADS}"/steam.deb
-		}
 		checkInstalled steam installSteam
 		;;
 
 		19)
 		echo -e "${y}Installing Heroic Game Launcher"; $r
-		# install heroic game launcher
-		installHeroic() {
-			aria2c --console-log-level=error --summary-interval=0\
-			    "$(wget -qO- https://api.github.com/repos/Heroic-Games-Launcher/HeroicGamesLauncher/releases|\
-			    grep browser_download_url|grep amd64.deb|head -n1|cut -d '"' -f4)"\
-			    -d "${DOWNLOADS}" -o "heroic.deb"
-			sudo gdebi "${DOWNLOADS}"/heroic.deb
-			rm "${DOWNLOADS}"/heroic.deb
-		}
 		checkInstalled heroic installHeroic
 		;;
 	esac
