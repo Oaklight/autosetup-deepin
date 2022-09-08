@@ -16,11 +16,18 @@ Current list of packages:
 12. "Shadowsocks-Electron"
 13. "rclone"
 14. "PulseAudio"
-15. "Vulkan"
-16. "Steam"
-17. "Heroic Game Launcher"
-18. "Eudic"
-19. "Zoom"
+15. "Eudic"
+16. "Zoom"
+17. "Vulkan"
+18. "Steam"
+19. "Heroic Game Launcher"
+
+## following packages are installed by default
+- whiptail
+- gdebi
+- aria2
+- git
+- fonts-noto-color-emoji
 
 ## setup rclone mount as disk
 ```bash
