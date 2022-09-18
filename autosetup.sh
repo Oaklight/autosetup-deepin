@@ -7,7 +7,8 @@ c='\e[36m' # Coloured echo (cyan)
 y='\e[93m' # Coloured echo (yellow)
 r='tput sgr0' #Reset colour after echo
 
-
+# disable keyboard module (comment to keep it default)
+gsettings set com.deepin.dde.dock.module.keyboard enable false
 
 # ================= helper functions =================
 # include functions for different packages
