@@ -30,6 +30,29 @@ Current list of packages:
 - fonts-noto-color-emoji
 
 ## setup rclone mount as disk
+### recommended
+This wikidoc describes a template way to create rclone services: https://github.com/rclone/rclone/wiki/Systemd-rclone-mount
+
+`rclone@.service` file is the systemd template service file.
+> Save the above file to `/etc/systemd/user/rclone@.service` if you want it accessible to the entire system, or `~/.config/systemd/user/rclone@.service`
+
+This script places the file at `~/.config/systemd/user/rclone@.service`
+
+run `systemctl --user daemon-reload` to refresh systemd service list
+
+#### basic config
+```bash
+# suppose we have "OneDrive-Personal" already configured in rclone
+# create local mapping dirs
+mkdir -p ~/OneDrive-Personal
+systemctl --user start rclone@OneDrive-Personal
+
+# if you could navigate to ~/OneDrive-Personal and see your files
+#   you could decide to make the rclone service autostart
+systemctl --user enable rclone@OneDrive-Personal
+```
+
+### Deprecated
 ```bash
 # create local mapping dirs
 mkdir -p ~/OneDrive-Personal
