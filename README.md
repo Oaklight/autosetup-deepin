@@ -1,7 +1,10 @@
-# autosetup
-A simple autosetup script to ease my reinstallation & new system setup :)
+# 自动设置
 
-Current list of packages:
+[English](./README_EN.md)
+
+一个简单的自动设置脚本，以方便我重新安装和新系统的设置 :)
+
+目前的软件包列表。
 1. "Better-DDE"
 2. "Vivaldi"
 3. "Thunderbird"
@@ -22,46 +25,50 @@ Current list of packages:
 18. "Steam"
 19. "Heroic Game Launcher"
 
-## following packages are installed by default
+## 默认安装以下软件包
+
 - whiptail
 - gdebi
 - aria2
 - git
 - fonts-noto-color-emoji
 
-## setup rclone mount as disk
-### recommended
-This wikidoc describes a template way to create rclone services: https://github.com/rclone/rclone/wiki/Systemd-rclone-mount
+## 设置 rclone 挂载为磁盘
 
-`rclone@.service` file is the systemd template service file.
-> Save the above file to `/etc/systemd/user/rclone@.service` if you want it accessible to the entire system, or `~/.config/systemd/user/rclone@.service`
+### 推荐
 
-This script places the file at `~/.config/systemd/user/rclone@.service`
+本维基百科介绍了一种创建rclone服务的模板方式：https://github.com/rclone/rclone/wiki/Systemd-rclone-mount
 
-run `systemctl --user daemon-reload` to refresh systemd service list
+`rclone@.service`文件是systemd的模板服务文件。
+> 如果你希望整个系统都能访问上述文件，可将其保存为`/etc/systemd/user/rclone@.service`，或者`~/.config/systemd/user/rclone@.service`。
 
-#### basic config
+该脚本将文件放在`~/.config/systemd/user/rclone@.service`处。
+
+运行`systemctl --user daemon-reload`来刷新systemd服务列表
+
+#### 基本配置
+
 ```bash
-# suppose we have "OneDrive-Personal" already configured in rclone
-# create local mapping dirs
+# 假设我们已经在rclone中配置了 "OneDrive-Personal"。
+# 创建本地映射目录
 mkdir -p ~/OneDrive-Personal
 systemctl --user start rclone@OneDrive-Personal
 
-# if you could navigate to ~/OneDrive-Personal and see your files
-#   you could decide to make the rclone service autostart
+# 检查 ~/OneDrive-Personal，如果能看到网盘文件则进行下一步
+# 设置rclone服务自动启动
 systemctl --user enable rclone@OneDrive-Personal
 ```
 
-### Deprecated
+### 废弃的
 ```bash
-# create local mapping dirs
+# 创建本地映射目录
 mkdir -p ~/OneDrive-Personal
 mkdir -p ~/OneDrive-UChicago
 mkdir -p ~/MegaSync
-# setup systemd service, reference: https://www.guyrutenberg.com/2021/06/25/autostart-rclone-mount-using-systemd/
+# 设置 systemd 服务，参考：https://www.guyrutenberg.com/2021/06/25/autostart-rclone-mount-using-systemd/
 cp rclone-* ~/.config/systemd/user
 systemctl --user daemon-reload
-systemctl --user enable --now rclone-onedrive-personal.service
-systemctl --user enable --now rclone-onedrive-uchicago.service
-systemctl --user enable --now rclone-megasync.service
+systemctl --user enable -- now rclone-onedrive-personal.service
+systemctl --user enable -- now rclone-onedrive-uchicago.service
+systemctl --user enable -- now rclone-megasync.service
 ```
