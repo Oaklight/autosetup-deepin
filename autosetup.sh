@@ -84,6 +84,14 @@ installCode() {
 	rm "${DOWNLOADS}"/vscode.deb
 }
 
+installWPS() {
+	sudo apt install cn.wps.wps-office -y
+	# set up the fonts
+	tar -xvf wps-office.tar.xz
+	sudo cp -r wps-office /usr/share/fonts/
+	rm wps-office/ -r
+}
+
 
 # install shadowsocks-electron
 installShadowsocks() {
@@ -287,6 +295,7 @@ do
 		11)
 		echo -e "${g}Installing WPS-CN"; $r
 		checkInstalled cn.wps.wps-office "sudo apt install cn.wps.wps-office -y"
+		checkInstalled cn.wps.wps-office installWPS
 		;;
 
 		12)
