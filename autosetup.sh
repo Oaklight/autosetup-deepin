@@ -212,128 +212,120 @@ fi
 
 dialogbox=(whiptail --separate-output --ok-button "Install" --title "Auto Setup Script" --checklist "\nPlease select required software(s):\n(Press 'Space' to Select/Deselect, 'Enter' to Install and 'Esc' to Cancel)" 30 80 20)
 
-options=(1 "Better-DDE" off
-	2 "Vivaldi" off
-	3 "Thunderbird" off
-	4 "Motrix" off
-	5 "Spark-Store" off
-	6 "YesPlayMusic" off
-	7 "Zotero" off
-	8 "Calibre" off
-	9 "Joplin" off
-	10 "VSCode" off
-	11 "WPS-CN" off
-	12 "Shadowsocks-Electron" off
-	13 "rclone" off
-	14 "Eudic" off
-	15 "Zoom" off
-	16 "PulseAudio" off
-	17 "Vulkan" off
-	18 "Steam" off
-	19 "Heroic Game Launcher" off)
+options=(1 "Vivaldi" off
+	2 "Thunderbird" off
+	3 "Motrix" off
+	4 "Spark-Store" off
+	5 "YesPlayMusic" off
+	6 "Zotero" off
+	7 "Calibre" off
+	8 "Joplin" off
+	9 "VSCode" off
+	10 "WPS-CN" off
+	11 "Shadowsocks-Electron" off
+	12 "rclone" off
+	13 "Eudic" off
+	14 "Zoom" off
+	15 "PulseAudio" off
+	16 "Vulkan" off
+	17 "Steam" off
+	18 "Heroic Game Launcher" off)
 
 selected=$("${dialogbox[@]}" "${options[@]}" 2>&1 >/dev/tty)
 for choices in $selected
 do
 	case $choices in
-		1) # be careful to use Better-DDE, it's very likely the one that triggers DDE message center problem.
-		echo -e "${g}Installing Better-DDE"; $r
-		# install better-dde
-		wget -q -O - https://better-dde.github.io/ppa/better-dde.gpg | sudo apt-key add -
-		sudo sh -c 'echo "deb https://better-dde.github.io/ppa/ ./" > /etc/apt/sources.list.d/better-dde.list'
-		sudo apt update && sudo apt dist-upgrade -y
-		;;
 
-		2)
+		1)
 		echo -e "${g}Installing Vivaldi"; $r
 		# install vivaldi browser
 		checkInstalled vivaldi-stable installVivaldi
 		;;
 
-		3)
+		2)
  		echo -e "${g}Installing Thunderbird"; $r
 		checkInstalled net.thunderbird "sudo apt-get install net.thunderbird -y"
  		;;
 
- 		4)
+ 		3)
 		echo -e "${g}Installing Motrix"; $r
 		checkInstalled motrix installMotrix
 		;;
 
-		5)
+		4)
 		echo -e "${g}Installing Spark-Store"; $r
 		checkInstalled spark-store installSparkStore
 		;;
 
-		6)
+		5)
 		echo -e "${g}Installing YesPlayMusic"; $r
 		checkInstalled yesplaymusic installYesPlayMusic
 		;;
 
-		7)
+		6)
 		echo -e "${g}Installing Zotero"; $r
 		checkInstalled zotero installZotero
 		;;
 
-		8)
+		7)
 		echo -e "${g}Installing Calibre"; $r
 		# install calibre=5.44
 		checkInstalled com.calibre-ebook.calibre "sudo apt-get install com.calibre-ebook.calibre -y"
 		;;
 
-		9)
+		8)
 		echo -e "${g}Installing Joplin"; $r
 		# install joplin
 		wget -O - https://raw.githubusercontent.com/laurent22/joplin/dev/Joplin_install_and_update.sh | bash
 		;;
 
-		10)
+		9)
 		echo -e "${g}Installing Visual Studio Code"; $r
 		checkInstalled code installCode
 		;;
 
-		11)
+		10)
 		echo -e "${g}Installing WPS-CN"; $r
 		checkInstalled cn.wps.wps-office "sudo apt install cn.wps.wps-office -y"
 		checkInstalled cn.wps.wps-office installWPS
 		;;
 
-		12)
+		11)
 		echo -e "${g}Installing Shadowsocks-Electron"; $r
 		checkInstalled shadowsocks-electron installShadowsocks
 		;;
 
-		13)
+		12)
 		echo -e "${g}Installing rclone"; $r
 		checkInstalled rclone installRclone
 		;;
 
-		14)
+		13)
 		echo -e "${g}Installing Eudic"; $r
 		checkInstalled eudic installEudic
 		;;
 
-		15)
+		14)
 		echo -e "${g}Installing zoom"; $r
 		checkInstalled zoom installZoom
 		;;
 
-		16)
+		15)
 		echo -e "${g}Installing PulseAudio"; $r
 		checkInstalled pulseaudio "sudo apt-get install pulseaudio -y"
 		;;
 
-		17)
+		16)
 		echo -e "${g}Installing Vulkan"; $r
 		installVulkan
 		;;
 		
-		18)
+		17)
 		echo -e "${g}Installing Steam"; $r
 		checkInstalled steam installSteam
 		;;
 
-		19)
+		18)
 		echo -e "${g}Installing Heroic Game Launcher"; $r
 		checkInstalled heroic installHeroic
 		;;

@@ -5,25 +5,28 @@
 一个简单的自动设置脚本，以方便我重新安装和新系统的设置 :)
 
 目前的软件包列表。
-1. "Better-DDE"
-2. "Vivaldi"
-3. "Thunderbird"
-4. "Motrix"
-5. "Spark-Store"
-6. "YesPlayMusic"
-7. "Zotero"
-8. "Calibre"
-9. "Joplin"
-10. "VSCode"
-11. "WPS-CN"
-12. "Shadowsocks-Electron"
-13. "rclone"
-14. "PulseAudio"
-15. "Eudic"
-16. "Zoom"
-17. "Vulkan"
-18. "Steam"
-19. "Heroic Game Launcher"
+1. "Vivaldi"
+2. "Thunderbird"
+3. "Motrix"
+4. "Spark-Store"
+5. "YesPlayMusic"
+6. "Zotero"
+7. "Calibre"
+8. "Joplin"
+9.  "VSCode"
+10. "WPS-CN"
+11. "Shadowsocks-Electron"
+12. "rclone"
+13. "PulseAudio"
+14. "Eudic"
+15. "Zoom"
+16. "Vulkan"
+17. "Steam"
+18. "Heroic Game Launcher"
+
+## obsolete
+
+- 移除better-dde，因为目前其安装方式基本等于没有办法卸载，所以不再默认支持。如需要请自行搜索安装或使用历史版本的该脚本。
 
 ## 默认安装以下软件包
 
@@ -60,6 +63,7 @@ systemctl --user enable rclone@OneDrive-Personal
 ```
 
 ### 废弃的
+
 ```bash
 # 创建本地映射目录
 mkdir -p ~/OneDrive-Personal

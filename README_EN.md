@@ -5,25 +5,29 @@
 A simple autosetup script to ease my reinstallation & new system setup :)
 
 Current list of packages:
-1. "Better-DDE"
-2. "Vivaldi"
-3. "Thunderbird"
-4. "Motrix"
-5. "Spark-Store"
-6. "YesPlayMusic"
-7. "Zotero"
-8. "Calibre"
-9. "Joplin"
-10. "VSCode"
-11. "WPS-CN"
-12. "Shadowsocks-Electron"
-13. "rclone"
-14. "PulseAudio"
-15. "Eudic"
-16. "Zoom"
-17. "Vulkan"
-18. "Steam"
-19. "Heroic Game Launcher"
+1. "Vivaldi"
+2. "Thunderbird"
+3. "Motrix"
+4. "Spark-Store"
+5. "YesPlayMusic"
+6. "Zotero"
+7. "Calibre"
+8. "Joplin"
+9.  "VSCode"
+10. "WPS-CN"
+11. "Shadowsocks-Electron"
+12. "rclone"
+13. "PulseAudio"
+14. "Eudic"
+15. "Zoom"
+16. "Vulkan"
+17. "Steam"
+18. "Heroic Game Launcher"
+
+## obsolete
+
+- Remove better-dde. The way it installs making reverting/uninstallation very difficult, so I decide to drop it from the script. \
+  If you wish to use it, do it by yourself or use historical commit of this script.
 
 ## following packages are installed by default
 
