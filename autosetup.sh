@@ -229,7 +229,8 @@ options=(1 "Vivaldi" off
 	15 "PulseAudio" off
 	16 "Vulkan" off
 	17 "Steam" off
-	18 "Heroic Game Launcher" off)
+	18 "Heroic Game Launcher" off
+	19 "Slack" off)
 
 selected=$("${dialogbox[@]}" "${options[@]}" 2>&1 >/dev/tty)
 for choices in $selected
@@ -328,6 +329,11 @@ do
 		18)
 		echo -e "${g}Installing Heroic Game Launcher"; $r
 		checkInstalled heroic installHeroic
+		;;
+
+		19)
+		echo -e "${g}Installing Slack"; $r
+		checkInstalled slack-desktop "sudo apt install slack-desktop -y"
 		;;
 	esac
 done
