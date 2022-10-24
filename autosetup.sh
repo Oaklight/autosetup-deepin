@@ -87,9 +87,11 @@ installCode() {
 installWPS() {
 	sudo apt install cn.wps.wps-office -y
 	# set up the fonts
-	tar -xvf wps-office.tar.xz
-	sudo cp -r wps-office /usr/share/fonts/
-	rm wps-office/ -r
+	# tar -xvf wps-office.tar.xz
+	gzip -kd wps-office/*
+	sudo mkdir -p /usr/share/fonts/wps-office/
+	sudo cp -r wps-office/*.ttf /usr/share/fonts/wps-office/
+	rm -f wps-office/*.ttf wps-office/*.ttc wps-office/*.TTF
 }
 
 
