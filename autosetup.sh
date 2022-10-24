@@ -77,11 +77,12 @@ installZotero() {
 
 
 installCode() {
-	aria2c --console-log-level=error --summary-interval=0\
-		"https://go.microsoft.com/fwlink/?LinkID=760868"\
-		-d "${DOWNLOADS}" -o "vscode.deb"
-	sudo gdebi "${DOWNLOADS}"/vscode.deb
-	rm "${DOWNLOADS}"/vscode.deb
+	# aria2c --console-log-level=error --summary-interval=0\
+	# 	"https://go.microsoft.com/fwlink/?LinkID=760868"\
+	# 	-d "${DOWNLOADS}" -o "vscode.deb"
+	# sudo gdebi "${DOWNLOADS}"/vscode.deb
+	# rm "${DOWNLOADS}"/vscode.deb
+	sudo apt install code -y
 }
 
 installWPS() {
@@ -164,6 +165,9 @@ installHeroic() {
 	rm "${DOWNLOADS}"/heroic.deb
 }
 
+installSlack() {
+	sudo apt-get install code -y
+}
 
 # ================= execute sequence =================
 
@@ -335,7 +339,7 @@ do
 
 		19)
 		echo -e "${g}Installing Slack"; $r
-		checkInstalled slack-desktop "sudo apt install slack-desktop -y"
+		checkInstalled slack-desktop installSlack
 		;;
 	esac
 done
