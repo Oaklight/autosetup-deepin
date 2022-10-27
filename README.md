@@ -24,6 +24,10 @@
 17. "Steam"
 18. "Heroic Game Launcher"
 
+## 自定义图表主题
+
+`tar -xf ./themes/icons/<icon-theme>.tar.xz -C ~/.local/share/icons`
+
 ## obsolete
 
 - 移除better-dde，因为目前其安装方式基本等于没有办法卸载，所以不再默认支持。如需要请自行搜索安装或使用历史版本的该脚本。

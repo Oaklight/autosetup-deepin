@@ -24,6 +24,10 @@ Current list of packages:
 17. "Steam"
 18. "Heroic Game Launcher"
 
+## customize icon themes
+
+`tar -xf ./themes/icons/<icon-theme>.tar.xz -C ~/.local/share/icons`
+
 ## obsolete
 
 - Remove better-dde. The way it installs making reverting/uninstallation very difficult, so I decide to drop it from the script. \
