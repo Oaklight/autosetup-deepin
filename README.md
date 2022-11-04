@@ -83,7 +83,7 @@ systemctl --user enable rclone@OneDrive-Personal
 
 ***
 
-# 过时内容
+## 过时内容
 
 - 移除better-dde，因为目前其安装方式基本等于没有办法卸载，所以不再默认支持。如需要请自行搜索安装或使用历史版本的该脚本。
 
