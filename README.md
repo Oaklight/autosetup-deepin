@@ -54,7 +54,7 @@
 ```bash
 cd ./scripts
 chmod +x ./setBisync.sh
-./scripts/setBisync.sh '/local/target/path/' 'rclone:/remote/path/' [1~60] # mins, default 30 mins
+./setBisync.sh '/local/target/path/' 'rclone:/remote/path/' [1~60] # mins, default 30 mins
 ```
 
 ### 推荐
