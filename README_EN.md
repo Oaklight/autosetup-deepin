@@ -83,7 +83,7 @@ systemctl --user enable rclone@OneDrive-Personal
 
 ***
 
-# Outdated
+## Outdated
 
 - Remove better-dde. The way it installs making reverting/uninstallation very difficult, so I decide to drop it from the script. \
   If you wish to use it, do it by yourself or use historical commit of this script.
