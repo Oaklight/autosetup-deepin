@@ -77,12 +77,11 @@ installZotero() {
 
 
 installCode() {
-	# aria2c --console-log-level=error --summary-interval=0\
-	# 	"https://go.microsoft.com/fwlink/?LinkID=760868"\
-	# 	-d "${DOWNLOADS}" -o "vscode.deb"
-	# sudo gdebi "${DOWNLOADS}"/vscode.deb
-	# rm "${DOWNLOADS}"/vscode.deb
-	sudo apt install code -y
+	aria2c --console-log-level=error --summary-interval=0\
+		"https://go.microsoft.com/fwlink/?LinkID=760868"\
+		-d "${DOWNLOADS}" -o "vscode.deb"
+	sudo gdebi "${DOWNLOADS}"/vscode.deb
+	rm "${DOWNLOADS}"/vscode.deb
 }
 
 installWPS() {
@@ -165,9 +164,6 @@ installHeroic() {
 	rm "${DOWNLOADS}"/heroic.deb
 }
 
-installSlack() {
-	sudo apt-get install code -y
-}
 
 # ================= execute sequence =================
 
@@ -235,8 +231,7 @@ options=(1 "Vivaldi" off
 	15 "PulseAudio" off
 	16 "Vulkan" off
 	17 "Steam" off
-	18 "Heroic Game Launcher" off
-	19 "Slack" off)
+	18 "Heroic Game Launcher" off)
 
 selected=$("${dialogbox[@]}" "${options[@]}" 2>&1 >/dev/tty)
 for choices in $selected
