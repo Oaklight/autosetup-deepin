@@ -24,7 +24,7 @@ if [ sizeMsg == *"Fail"* ]; then
     exit 1
 fi
 
-if [[ $3 -lt 1 || $3 -gt 59 ]]; then
+if [[ !($3 -ge 1 && $3 -le 60) ]]; then
     echo $HELPMSG "ERROR interval"
     exit 1
 fi
