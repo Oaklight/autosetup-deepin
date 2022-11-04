@@ -1,6 +1,6 @@
 #!/bin/bash
 
-HELPMSG="./setBisync.sh '/path/to/local/tree/' '/path/to/rclone/remote/tree/' [1~60](mins, default 30 mins)"
+HELPMSG="./setBisync.sh '/local/target/path/' 'rclone:/remote/path/' [1~60] # mins, default 30 mins"
 
 if [[ $# -lt 2 || $# -gt 3 ]]; then
     echo $HELPMSG

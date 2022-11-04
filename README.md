@@ -1,6 +1,15 @@
 # 自动设置
 
-[English](./README_EN.md)
+[English Version](./README_EN.md)
+
+- [自动设置](#自动设置)
+  - [自定义图表主题](#自定义图表主题)
+  - [默认安装以下软件包](#默认安装以下软件包)
+  - [设置 rclone 挂载为磁盘](#设置-rclone-挂载为磁盘)
+    - [为某个文件夹设置bisync](#为某个文件夹设置bisync)
+    - [推荐](#推荐)
+      - [基本配置](#基本配置)
+- [过时内容](#过时内容)
 
 一个简单的自动设置脚本，以方便我重新安装和新系统的设置 :)
 
@@ -28,10 +37,6 @@
 
 `tar -xf ./themes/icons/<icon-theme>.tar.xz -C ~/.local/share/icons`
 
-## obsolete
-
-- 移除better-dde，因为目前其安装方式基本等于没有办法卸载，所以不再默认支持。如需要请自行搜索安装或使用历史版本的该脚本。
-
 ## 默认安装以下软件包
 
 - whiptail
@@ -41,6 +46,16 @@
 - fonts-noto-color-emoji
 
 ## 设置 rclone 挂载为磁盘
+
+### 为某个文件夹设置bisync
+
+有时我们想脱机使用某些文件，比如照片、zotero论文集、logseq本地文件等等，那`mount`就不再满足我们的需求，`bisync`这时候就显得十分方便。但是，这个功能目前只在[一部分云盘系统](https://rclone.org/bisync/#supported-backends)上可以正常工作。同时，因为rclone目前不能监控文件变动，所以需要搭配`cron`来定时同步。
+
+```bash
+cd ./scripts
+chmod +x ./setBisync.sh
+./scripts/setBisync.sh '/local/target/path/' 'rclone:/remote/path/' [1~60] # mins, default 30 mins
+```
 
 ### 推荐
 
@@ -66,8 +81,13 @@ systemctl --user start rclone@OneDrive-Personal
 systemctl --user enable rclone@OneDrive-Personal
 ```
 
-### 废弃的
+***
 
+# 过时内容
+
+- 移除better-dde，因为目前其安装方式基本等于没有办法卸载，所以不再默认支持。如需要请自行搜索安装或使用历史版本的该脚本。
+
+- 下面这个脚本不再支持。如要使用，请查阅过往版本的commit记录
 ```bash
 # 创建本地映射目录
 mkdir -p ~/OneDrive-Personal

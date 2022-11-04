@@ -2,6 +2,15 @@
 
 [中文版](./README.md)
 
+- [autosetup](#autosetup)
+  - [customize icon themes](#customize-icon-themes)
+  - [following packages are installed by default](#following-packages-are-installed-by-default)
+  - [setup rclone mount as disk](#setup-rclone-mount-as-disk)
+    - [set up bisync for some directory](#set-up-bisync-for-some-directory)
+    - [recommended](#recommended)
+      - [basic config](#basic-config)
+- [Outdated](#outdated)
+
 A simple autosetup script to ease my reinstallation & new system setup :)
 
 Current list of packages:
@@ -28,11 +37,6 @@ Current list of packages:
 
 `tar -xf ./themes/icons/<icon-theme>.tar.xz -C ~/.local/share/icons`
 
-## obsolete
-
-- Remove better-dde. The way it installs making reverting/uninstallation very difficult, so I decide to drop it from the script. \
-  If you wish to use it, do it by yourself or use historical commit of this script.
-
 ## following packages are installed by default
 
 - whiptail
@@ -42,6 +46,16 @@ Current list of packages:
 - fonts-noto-color-emoji
 
 ## setup rclone mount as disk
+
+### set up bisync for some directory
+
+Sometimes, we may want to access certain files offline as well, such as photos, zotero collections, logseq files, etc. `mount` no longer fulfills this demand and `bisync` seems a nice alternative in such scenarios. However, this function only supports [certain cloud systems](https://rclone.org/bisync/#supported-backends). Also, rclone at this moment doesn't support file change monitoring. We will need to use `cron` to make this happen.
+
+```bash
+cd ./scripts
+chmod +x ./setBisync.sh
+./scripts/setBisync.sh '/local/target/path/' 'rclone:/remote/path/' [1~60] # mins, default 30 mins
+```
 
 ### recommended
 
@@ -67,8 +81,14 @@ systemctl --user start rclone@OneDrive-Personal
 systemctl --user enable rclone@OneDrive-Personal
 ```
 
-### Deprecated
+***
 
+# Outdated
+
+- Remove better-dde. The way it installs making reverting/uninstallation very difficult, so I decide to drop it from the script. \
+  If you wish to use it, do it by yourself or use historical commit of this script.
+
+- This script below is no longer supported. If you wish to use it, please check historical commit
 ```bash
 # create local mapping dirs
 mkdir -p ~/OneDrive-Personal
