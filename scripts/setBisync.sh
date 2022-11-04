@@ -35,7 +35,10 @@ echo "sync remote to local for the first time"
 rclone sync $REMOTEPATH $LOCALPATH -v
 rclone bisync $LOCALPATH $REMOTEPATH --resync -v
 
-CRONJOB="*/$INTERVAL * * * * rclone bisync $LOCALPATH $REMOTEPATH >> ~/rclone-logseq-bisync.log 2>&1 "
+echo "Please specify the path to log the rclone output"
+read LOGPATH
+
+CRONJOB="*/$INTERVAL * * * * rclone bisync $LOCALPATH $REMOTEPATH >> $LOGPATH 2>&1 "
 echo "setting cron job: $CRONJOB"
 # create cron rclone bisync job
 crontab -l > mycron
