@@ -164,6 +164,12 @@ installHeroic() {
 	rm "${DOWNLOADS}"/heroic.deb
 }
 
+# install Foxit PDF reader
+installFoxitPDF() {
+	wget "https://www.foxit.com/downloads/latest.html?product=Foxit-Reader&platform=Linux-64-bit&version=&package_type=&language=English" -O "${DOWNLOADS}"/foxit.tar.gz
+	tar -xvzf "${DOWNLOADS}"/foxit.tar.gz
+	rm "${DOWNLOADS}"/foxit.tar.gz
+}
 
 # ================= execute sequence =================
 
@@ -231,7 +237,8 @@ options=(1 "Vivaldi" off
 	15 "PulseAudio" off
 	16 "Vulkan" off
 	17 "Steam" off
-	18 "Heroic Game Launcher" off)
+	18 "Heroic Game Launcher" off
+	19 "Foxit PDF Reader" off)
 
 selected=$("${dialogbox[@]}" "${options[@]}" 2>&1 >/dev/tty)
 for choices in $selected
@@ -333,8 +340,8 @@ do
 		;;
 
 		19)
-		echo -e "${g}Installing Slack"; $r
-		checkInstalled slack-desktop installSlack
+		echo -e "${g}Installing Foxit PDF Reader"; $r
+		installFoxitPDF
 		;;
 	esac
 done
