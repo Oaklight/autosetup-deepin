@@ -9,29 +9,30 @@
     - [为某个文件夹设置bisync](#为某个文件夹设置bisync)
     - [推荐](#推荐)
       - [基本配置](#基本配置)
-- [过时内容](#过时内容)
+  - [过时内容](#过时内容)
 
 一个简单的自动设置脚本，以方便我重新安装和新系统的设置 :)
 
 目前的软件包列表。
-1. "Vivaldi"
-2. "Thunderbird"
-3. "Motrix"
-4. "Spark-Store"
-5. "YesPlayMusic"
-6. "Zotero"
-7. "Calibre"
-8. "Joplin"
-9.  "VSCode"
-10. "WPS-CN"
-11. "Shadowsocks-Electron"
-12. "rclone"
-13. "PulseAudio"
-14. "Eudic"
-15. "Zoom"
-16. "Vulkan"
-17. "Steam"
-18. "Heroic Game Launcher"
+1. Vivaldi
+2. Thunderbird
+3. Motrix
+4. Spark-Store
+5. YesPlayMusic
+6. Zotero
+7. Calibre
+8. Joplin
+9.  VSCode
+10. WPS-CN
+11. Shadowsocks-Electron
+12. rclone
+13. PulseAudio
+14. Eudic
+15. Zoom
+16. Vulkan
+17. Steam
+18. Heroic Game Launcher
+19. Foxit PDF Reader
 
 ## 自定义图表主题
 

@@ -9,29 +9,30 @@
     - [set up bisync for some directory](#set-up-bisync-for-some-directory)
     - [recommended](#recommended)
       - [basic config](#basic-config)
-- [Outdated](#outdated)
+  - [Outdated](#outdated)
 
 A simple autosetup script to ease my reinstallation & new system setup :)
 
 Current list of packages:
-1. "Vivaldi"
-2. "Thunderbird"
-3. "Motrix"
-4. "Spark-Store"
-5. "YesPlayMusic"
-6. "Zotero"
-7. "Calibre"
-8. "Joplin"
-9.  "VSCode"
-10. "WPS-CN"
-11. "Shadowsocks-Electron"
-12. "rclone"
-13. "PulseAudio"
-14. "Eudic"
-15. "Zoom"
-16. "Vulkan"
-17. "Steam"
-18. "Heroic Game Launcher"
+1. Vivaldi
+2. Thunderbird
+3. Motrix
+4. Spark-Store
+5. YesPlayMusic
+6. Zotero
+7. Calibre
+8. Joplin
+9.  VSCode
+10. WPS-CN
+11. Shadowsocks-Electron
+12. rclone
+13. PulseAudio
+14. Eudic
+15. Zoom
+16. Vulkan
+17. Steam
+18. Heroic Game Launcher
+19. Foxit PDF Reader
 
 ## customize icon themes
 
