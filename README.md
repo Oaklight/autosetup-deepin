@@ -33,6 +33,7 @@
 17. Steam
 18. Heroic Game Launcher
 19. Foxit PDF Reader
+20. Duplicati
 
 ## 自定义图表主题
 

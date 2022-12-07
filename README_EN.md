@@ -33,6 +33,7 @@ Current list of packages:
 17. Steam
 18. Heroic Game Launcher
 19. Foxit PDF Reader
+20. Duplicati
 
 ## customize icon themes
 
