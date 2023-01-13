@@ -172,6 +172,30 @@ installDuplicati() {
 	rm deb-temp/ -r
 }
 
+installFastGithub() {
+	echo "" >>~/.bashrc
+	echo "" >>~/.bashrc
+	echo "fastgithub() {
+		# Check if the parameter is 'start' or 'stop'
+		if [ '$1' == 'start' ]; then
+			# Start the service
+			sudo ~/.fastgithub/fastgithub start
+			export http_proxy=http://127.0.0.1:38457
+			export https_proxy=http://127.0.0.1:38457
+		elif [ '$1' == 'stop' ]; then
+			# Stop the service
+			sudo ~/.fastgithub/fastgithub stop
+			unset http_proxy
+			unset https_proxy
+		else
+			# If the parameter is not 'start' or 'stop', print an error message
+			echo 'Error: Invalid parameter. Must be either start or stop.'
+		fi
+	}" >>~/.bashrc
+	unzip -d ~ ./packages/fastgithub_linux-x64.zip
+	mv ~/fastgithub_linux-x64 ~/.fastgithub
+}
+
 # ================= execute sequence =================
 
 # 3 seconds wait time to start the setup
@@ -253,7 +277,8 @@ options=(1 "Vivaldi" off
 	17 "Steam" off
 	18 "Heroic Game Launcher" off
 	19 "Foxit PDF Reader" off
-	20 "Duplicati" off)
+	20 "Duplicati" off
+	21 "FastGithub" off)
 
 selected=$("${dialogbox[@]}" "${options[@]}" 2>&1 >/dev/tty)
 for choices in $selected; do
@@ -382,6 +407,13 @@ for choices in $selected; do
 		${r}
 		installDuplicati
 		;;
+
+	21)
+		echo -e "${g}Installing FastGithub proxy service"
+		${r}
+		installFastGithub
+		;;
+
 	esac
 done
 
