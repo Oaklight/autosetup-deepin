@@ -19,10 +19,9 @@ ExecStartPre=/usr/bin/test -w ${MOUNT_DIR}
 
 #Mount rclone fs
 ExecStart=/usr/bin/rclone mount \
-		--rc \
 		--dir-cache-time 720h \
 		--poll-interval 30s \
-		--buffer-size 2M \
+		--buffer-size 1M \
 		--vfs-cache-mode full \
 		--vfs-cache-max-age 1h \
 		--vfs-read-chunk-size 1M \

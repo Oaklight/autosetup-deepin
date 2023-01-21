@@ -30,20 +30,22 @@ checkInstalled() {
 
 # install vivaldi
 installVivaldi() {
-	wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | gpg --dearmor | sudo dd of=/u
-	r/share/keyrings/vivaldi-browser.gpg
-	echo "deb [signed-by=/usr/share/keyrings/vivaldi-browser.gpg arch=$(dpkg --print-architecture)]
-https://repo.vivaldi.com/archive/deb/ stable main" | sudo dd of=/etc/apt/sources.list.d/vivaldi-archive.list
-	sudo apt update && sudo apt install vivaldi-stable -y
+	# 	wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | gpg --dearmor | sudo dd of=/u
+	# 	r/share/keyrings/vivaldi-browser.gpg
+	# 	echo "deb [signed-by=/usr/share/keyrings/vivaldi-browser.gpg arch=$(dpkg --print-architecture)]
+	# https://repo.vivaldi.com/archive/deb/ stable main" | sudo dd of=/etc/apt/sources.list.d/vivaldi-archive.list
+	# 	sudo apt update && sudo apt install vivaldi-stable -y
+	sudo apt install com.vivaldi.vivaldi -y
 }
 
 # install motrix
 installMotrix() {
-	aria2c --console-log-level=error --summary-interval=0 "$(wget -qO- https://api.github.com/repos/agalwood/Motrix/releases |
-		grep browser_download_url | grep amd64.deb | head -n1 | cut -d '"' -f4)" \
-		-d "${DOWNLOADS}" -o "motrix.deb"
-	sudo gdebi "${DOWNLOADS}"/motrix.deb
-	rm "${DOWNLOADS}"/motrix.deb
+	# aria2c --console-log-level=error --summary-interval=0 "$(wget -qO- https://api.github.com/repos/agalwood/Motrix/releases |
+	# 	grep browser_download_url | grep amd64.deb | head -n1 | cut -d '"' -f4)" \
+	# 	-d "${DOWNLOADS}" -o "motrix.deb"
+	# sudo gdebi "${DOWNLOADS}"/motrix.deb
+	# rm "${DOWNLOADS}"/motrix.deb
+	sudo apt install com.github.motrix -y
 }
 
 # install spark-store
@@ -65,9 +67,10 @@ installYesPlayMusic() {
 
 # install zotero-deb
 installZotero() {
-	wget -qO- https://raw.githubusercontent.com/retorquere/zotero-deb/master/install.sh | sudo bash
-	sudo apt update -y
-	sudo apt install zotero -y
+	# wget -qO- https://raw.githubusercontent.com/retorquere/zotero-deb/master/install.sh | sudo bash
+	# sudo apt update -y
+	# sudo apt install zotero -y
+	sudo apt install org.zotero.zotero-standalone -y
 }
 
 installCode() {
@@ -79,6 +82,10 @@ installCode() {
 
 installWPS() {
 	sudo apt install cn.wps.wps-office -y
+	installWPSFonts
+}
+
+installWPSFonts() {
 	# set up the fonts
 	# tar -xvf wps-office.tar.xz
 	gzip -kd wps-office/*
@@ -258,10 +265,10 @@ fi
 
 dialogbox=(whiptail --separate-output --ok-button "Install" --title "Auto Setup Script" --checklist "\nPlease select required software(s):\n(Press 'Space' to Select/Deselect, 'Enter' to Install and 'Esc' to Cancel)" 30 80 20)
 
-options=(1 "Vivaldi" off
-	2 "Thunderbird" off
-	3 "Motrix" off
-	4 "Spark-Store" off
+options=(1 "Spark-Store" off
+	2 "Vivaldi" off
+	3 "Thunderbird" off
+	4 "Motrix" off
 	5 "YesPlayMusic" off
 	6 "Zotero" off
 	7 "Calibre" off
@@ -278,35 +285,36 @@ options=(1 "Vivaldi" off
 	18 "Heroic Game Launcher" off
 	19 "Foxit PDF Reader" off
 	20 "Duplicati" off
-	21 "FastGithub" off)
+	21 "FastGithub" off
+	22 "WPS-Fonts" off
+)
 
 selected=$("${dialogbox[@]}" "${options[@]}" 2>&1 >/dev/tty)
 for choices in $selected; do
 	case $choices in
-
 	1)
-		echo -e "${g}Installing Vivaldi"
+		echo -e "${g}Installing Spark-Store"
 		${r}
-		# install vivaldi browser
-		checkInstalled vivaldi-stable installVivaldi
+		checkInstalled spark-store installSparkStore
 		;;
 
 	2)
+		echo -e "${g}Installing Vivaldi"
+		${r}
+		# install vivaldi browser
+		checkInstalled com.vivaldi.vivaldi installVivaldi
+		;;
+
+	3)
 		echo -e "${g}Installing Thunderbird"
 		${r}
 		checkInstalled net.thunderbird "sudo apt-get install net.thunderbird -y"
 		;;
 
-	3)
+	4)
 		echo -e "${g}Installing Motrix"
 		${r}
-		checkInstalled motrix installMotrix
-		;;
-
-	4)
-		echo -e "${g}Installing Spark-Store"
-		${r}
-		checkInstalled spark-store installSparkStore
+		checkInstalled com.github.motrix installMotrix
 		;;
 
 	5)
@@ -318,7 +326,7 @@ for choices in $selected; do
 	6)
 		echo -e "${g}Installing Zotero"
 		${r}
-		checkInstalled zotero installZotero
+		checkInstalled org.zotero.zotero-standalone installZotero
 		;;
 
 	7)
@@ -344,7 +352,7 @@ for choices in $selected; do
 	10)
 		echo -e "${g}Installing WPS-CN"
 		${r}
-		checkInstalled cn.wps.wps-office "sudo apt install cn.wps.wps-office -y"
+		# checkInstalled cn.wps.wps-office "sudo apt install cn.wps.wps-office -y"
 		checkInstalled cn.wps.wps-office installWPS
 		;;
 
@@ -414,6 +422,11 @@ for choices in $selected; do
 		installFastGithub
 		;;
 
+	22)
+		echo -e "${g}Installing WPS fonts"
+		${r}
+		installWPSFonts
+		;;
 	esac
 done
 
