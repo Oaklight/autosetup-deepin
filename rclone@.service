@@ -9,7 +9,7 @@ Type=simple
 Environment=REMOTE_NAME="%i"
 Environment=REMOTE_PATH="/"
 Environment=MOUNT_DIR="%h/%i"
-Environment=POST_MOUNT_SCRIPT="/usr/bin/rclone rc vfs/refresh recursive=true _async=true"
+Environment=POST_MOUNT_SCRIPT=""
 
 #Check that rclone is installed
 ExecStartPre=/usr/bin/test -x /usr/bin/rclone
@@ -21,18 +21,20 @@ ExecStartPre=/usr/bin/test -w ${MOUNT_DIR}
 ExecStart=/usr/bin/rclone mount \
 		--dir-cache-time 720h \
 		--poll-interval 30s \
-		--buffer-size 1M \
-		--vfs-cache-mode full \
+		--buffer-size 2M \
+		--vfs-cache-mode writes \
+		--poll-interval 30s \
+		--buffer-size 2M \
+		--vfs-cache-mode writes \
 		--vfs-cache-max-age 1h \
-		--vfs-read-chunk-size 1M \
-		--vfs-read-chunk-size-limit 1G \
-		--vfs-read-ahead 32M \
+		--vfs-read-chunk-size 128K \
+		--vfs-read-chunk-size-limit 2M \
+		--vfs-read-ahead 16M \
+		--max-read-ahead 1M \
+		--no-checksum \
+		--ignore-size \
 		--use-mmap \
 		--vfs-fast-fingerprint \
-		# --no-modtime \
-		# --write-back-cache \
-		# --allow-other \
-		# --no-traverse \
 		${REMOTE_NAME}:${REMOTE_PATH} ${MOUNT_DIR}
 
 #Execute Post Mount Script if specified
