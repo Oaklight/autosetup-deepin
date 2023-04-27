@@ -101,7 +101,7 @@ installShadowsocks() {
     # -d "${DOWNLOADS}" -o "shadowsocks.deb"
     # sudo gdebi "${DOWNLOADS}"/shadowsocks.deb
     # rm "${DOWNLOADS}"/shadowsocks.deb
-	sudo gdebi ./packages/se*.deb
+    sudo gdebi ./packages/se*.deb
 }
 
 installRclone() {
@@ -295,7 +295,8 @@ fi
 
 dialogbox=(whiptail --separate-output --ok-button "Install" --title "Auto Setup Script" --checklist "\nPlease select required software(s):\n(Press 'Space' to Select/Deselect, 'Enter' to Install and 'Esc' to Cancel)" 30 80 20)
 
-options=(1 "Spark-Store" off
+options=(
+    1 "Spark-Store" off
     2 "Vivaldi" off
     3 "Thunderbird" off
     4 "Motrix" off
@@ -318,7 +319,7 @@ options=(1 "Spark-Store" off
     21 "FastGithub" off
     22 "WPS-Fonts" off
     23 "Syncthing" off
-	24 "Netease Cloud Music" off
+    24 "Netease Cloud Music" off
 )
 
 selected=$("${dialogbox[@]}" "${options[@]}" 2>&1 >/dev/tty)
@@ -341,7 +342,7 @@ for choices in $selected; do
             echo -e "${g}Installing Thunderbird"
             ${r}
             # checkInstalled net.thunderbird "sudo apt-get install net.thunderbird -y"
-			checkInstalled net.thunderbird installThunderbird
+            checkInstalled net.thunderbird installThunderbird
         ;;
         
         4)
@@ -412,7 +413,7 @@ for choices in $selected; do
             echo -e "${g}Installing zoom"
             ${r}
             # checkInstalled zoom installZoom
-			checkInstalled us.zoom.zoom "sudo apt-get install us.zoom.zoom -y"
+            checkInstalled us.zoom.zoom "sudo apt-get install us.zoom.zoom -y"
         ;;
         
         15)
@@ -467,10 +468,10 @@ for choices in $selected; do
             ${r}
             checkInstalled syncthing installSyncthing
         ;;
-		24)
-			echo -e "${g}Installing Netease Cloud Music"
-			${r}
-			checkInstalled netease-cloud-music "sudo apt-get install netease-cloud-music -y"
+        24)
+            echo -e "${g}Installing Netease Cloud Music"
+            ${r}
+            checkInstalled netease-cloud-music "sudo apt-get install netease-cloud-music -y"
     esac
 done
 
