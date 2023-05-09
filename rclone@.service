@@ -10,19 +10,25 @@ Environment=REMOTE_NAME="%i"
 Environment=REMOTE_PATH="/"
 Environment=MOUNT_DIR="%h/%i"
 Environment=POST_MOUNT_SCRIPT=""
+Environment=RCLONE_CONF="%h/.config/rclone/rclone.conf"
 
 #Check that rclone is installed
 ExecStartPre=/usr/bin/test -x /usr/bin/rclone
+
 #Check the mount directory
 ExecStartPre=/usr/bin/test -d ${MOUNT_DIR}
 ExecStartPre=/usr/bin/test -w ${MOUNT_DIR}
 
+#Check the rclone configuration file
+ExecStartPre=/usr/bin/test -f "${RCLONE_CONF}"
+ExecStartPre=/usr/bin/test -r "${RCLONE_CONF}"
+
 #Mount rclone fs
 ExecStart=/usr/bin/rclone mount \
+		--config="${RCLONE_CONF}" \
 		--dir-cache-time 720h \
 		--poll-interval 30s \
 		--buffer-size 2M \
-		--vfs-cache-mode writes \
 		--poll-interval 30s \
 		--buffer-size 2M \
 		--vfs-cache-mode writes \
@@ -44,8 +50,8 @@ ExecStartPost=/bin/sh -c ${POST_MOUNT_SCRIPT}
 ExecStop=/usr/bin/fusermount -zu ${MOUNT_DIR}
 
 # Restart the service whenever rclone exists with non-zero exit code
-Restart=on-failure
-RestartSec=15
+Restart=always
+RestartSec=10
 
 [Install]
 # Autostart after reboot
