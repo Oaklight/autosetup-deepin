@@ -105,9 +105,11 @@ installShadowsocks() {
 }
 
 installRclone() {
+    # install fuse3 for fusermount3
+    sudo apt-get install fuse3 -y
     # install rclone & setup onedrive and megasync
-    sudo -v
-    curl https://rclone.org/install.sh | sudo bash
+    # wget -qO- "https://mirror.mwt.me/rclone/install.sh" | sudo -s
+    sudo -v ; curl https://rclone.org/install.sh | sudo bash
     # you should replace paths in rclone* and mkdir to fit your need.
     #sudo cp ./rclone* "${HOME}/.config/systemd/user/"
     #mkdir -p "${HOME}/OneDrive-Personal"
