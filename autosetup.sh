@@ -293,28 +293,10 @@ checkInstalled com.appimage-installer "sudo apt-get install com.appimage-install
 # Upgrade and Update Command
 echo -e "${g}Updating and upgrading before performing further operations."
 ${r}
-sudo apt update && sudo apt upgrade -y
+sudo apt update && apt list --upgradable
+sudo apt upgrade
 sudo apt --fix-broken install -y
 # sudo apt autoremove -y
-
-#Setting up Git
-read -p "${g}Do you want to setup Git global config? (y/n): " -r
-${r}
-echo
-if [[ ${r}EPLY =~ ^[Yy]$ ]]; then
-    echo -e "${g}Setting up global git config at ~/.gitconfig"
-    ${r}
-    git config --global color.ui true
-    read -p "Enter Your Full Name: " name
-    read -p "Enter Your Email: " email
-    git config --global user.name "$name"
-    git config --global user.email "$email"
-    echo -e "${g}Git Setup Successfully!"
-    ${r}
-else
-    echo -e "${g}Skipping!"
-    ${r} && :
-fi
 
 dialogbox=(whiptail --separate-output --ok-button "Install" --title "Auto Setup Script" --checklist "\nPlease select required software(s):\n(Press 'Space' to Select/Deselect, 'Enter' to Install and 'Esc' to Cancel)" 30 80 20)
 
