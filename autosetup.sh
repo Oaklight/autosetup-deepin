@@ -28,6 +28,27 @@ checkInstalled() {
     fi
 }
 
+installCountFiles() {
+    # 指定脚本文件和目标目录
+    source_file="scripts/count_files.sh"
+    target_file="/usr/local/bin/count_files"
+
+    # Check if the target file already exists
+    if [ -e "${target_file}" ]; then
+        echo "File already exists in the target directory."
+        echo "If you want to reinstall, please delete the file and try again."
+        return 1
+    fi
+
+    # 移动脚本文件到目标目录
+    sudo mv "$source_file" "$target_file"
+
+    # 设置脚本文件为可执行
+    sudo chmod +x "${target_file}"
+
+    echo "命令已成功安装为系统命令。Command has been successfully installed as a system command."
+}
+
 # install vivaldi
 installVivaldi() {
     # 	wget -qO- https://repo.vivaldi.com/archive/linux_signing_key.pub | gpg --dearmor | sudo dd of=/u
@@ -322,6 +343,7 @@ options=(
     22 "WPS-Fonts" off
     23 "Syncthing" off
     24 "Netease Cloud Music" off
+    25 "count file cmd" on
 )
 
 selected=$("${dialogbox[@]}" "${options[@]}" 2>&1 >/dev/tty)
@@ -474,6 +496,11 @@ for choices in $selected; do
             echo -e "${g}Installing Netease Cloud Music"
             ${r}
             checkInstalled netease-cloud-music "sudo apt-get install netease-cloud-music -y"
+        ;;
+        25)
+            echo -e "${g}Installing count file cmd"
+            ${r}
+            installCountFiles
     esac
 done
 
