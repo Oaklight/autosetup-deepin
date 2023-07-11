@@ -180,12 +180,13 @@ installHeroic() {
 
 # install Foxit PDF reader
 installFoxitPDF() {
-    wget "https://www.foxit.com/downloads/latest.html?product=Foxit-Reader&platform=Linux-64-bit&version=&package_type=&language=English" -O "${DOWNLOADS}"/foxit.tar.gz
-    filename=$(tar ztf "${DOWNLOADS}"/foxit.tar.gz)
-    tar -xvzf "${DOWNLOADS}"/foxit.tar.gz # get extracted filename
-    rm "${DOWNLOADS}"/foxit.tar.gz
-    sudo ./${filename}
-    rm $filename
+    # wget "https://www.foxit.com/downloads/latest.html?product=Foxit-Reader&platform=Linux-64-bit&version=&package_type=&language=English" -O "${DOWNLOADS}"/foxit.tar.gz
+    # filename=$(tar ztf "${DOWNLOADS}"/foxit.tar.gz)
+    # tar -xvzf "${DOWNLOADS}"/foxit.tar.gz # get extracted filename
+    # rm "${DOWNLOADS}"/foxit.tar.gz
+    # sudo ./${filename}
+    # rm $filename
+    sudo apt install cn.foxitsoftware.foxitreader -y
 }
 
 installDuplicati() {
